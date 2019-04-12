@@ -69,3 +69,7 @@ public class BadCodeExample {
         driver.quit();
     }
 }
+/* create new test account for linkedin
+create new test account for gmail
+open linkedin url
+enter login and password */
