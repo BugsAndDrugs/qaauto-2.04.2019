@@ -84,4 +84,22 @@ public class LoginTest {
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Empty Credentials, Wrong URL");
         driver.quit();
     }
+    @Test
+    public void classWork () {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\plk\\Downloads\\New folder\\chromedriver_win32\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.linkedin.com");
+        Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up ");
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("bugz.and.drugz@gmail.com", "149600");
+
+        //
+
+        HomePage homePage = new HomePage(driver);
+        Assert.assertTrue(homePage.isProfileMenuItemDisplayed(), "Home page is not loaded");
+        homePage.clickOnProfileMenuItem();
+        Assert.assertEquals(homePage.getProfileUserNameText(), "Bugz Drugz","Wrong User Name is displayed");
+        driver.quit();
+    }
 }
