@@ -3,30 +3,39 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static java.lang.Thread.sleep;
 
 public class LoginTest {
-    @Test
-    public void successfulLoginTest() {
+
+    @DataProvider
+    public Object[][] validDataProvider() {
+        return new Object[][]{
+                { "bugz.and.drugz@gmail.com", "149600" },
+                { "bugz.AND.drugz@gmail.com", "149600" },
+        };
+    }
+
+    @Test(dataProvider = "validDataProvider")
+    public void successfulLoginTest(String userEmail, String userPassword) {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\plk\\Downloads\\New folder\\chromedriver_win32\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.linkedin.com");
         Assert.assertEquals(driver.getTitle(), "LinkedIn: Log In or Sign Up ");
-
         // login
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.login("bugz.and.drugz@gmail.com", "149600");
+        loginPage.login(userEmail, userPassword);
 
-//        driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("bugz.and.drugz@gmail.com");
-//        driver.findElement(By.xpath("//input[@id='login-password']")).sendKeys("149600");
-//        driver.findElement(By.xpath("//input[@id='login-submit']")).click();
-//        try {
-//            sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        //driver.findElement(By.xpath("//input[@id='login-email']")).sendKeys("bugz.and.drugz@gmail.com");
+        //driver.findElement(By.xpath("//input[@id='login-password']")).sendKeys("149600");
+        //driver.findElement(By.xpath("//input[@id='login-submit']")).click();
+        // try {
+        //    sleep(3000);
+        //} catch (InterruptedException e) {
+        //    e.printStackTrace();
+        //}
 
         HomePage homePage = new HomePage(driver);
         Assert.assertTrue(homePage.isProfileMenuItemDisplayed());
@@ -41,6 +50,7 @@ public class LoginTest {
 
         driver.quit();
     }
+
     @Test
     public void emptyInputsLoginTest() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\plk\\Downloads\\New folder\\chromedriver_win32\\chromedriver.exe");
@@ -55,8 +65,20 @@ public class LoginTest {
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.linkedin.com/", "Empty Credentials, Wrong URL");
         driver.quit();
     }
+
     @Test
-    public void classWork () {
+    public void negativeLoginWithEmptyFields() {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\plk\\Downloads\\New folder\\chromedriver_win32\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.linkedin.com");
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("", "");
+        Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded");
+        driver.quit();
+    }
+
+    @Test
+    public void classWork() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\plk\\Downloads\\New folder\\chromedriver_win32\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.linkedin.com");
@@ -66,7 +88,7 @@ public class LoginTest {
         HomePage homePage = new HomePage(driver);
         Assert.assertTrue(homePage.isProfileMenuItemDisplayed(), "Home page is not loaded");
         homePage.clickOnProfileMenuItem();
-        Assert.assertEquals(homePage.getProfileUserNameText(), "Bugz Drugz","Wrong User Name is displayed");
+        Assert.assertEquals(homePage.getProfileUserNameText(), "Bugz Drugz", "Wrong User Name is displayed");
         driver.quit();
     }
 }

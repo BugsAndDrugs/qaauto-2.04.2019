@@ -16,7 +16,7 @@ public class LoginPage {
         initElements();
     }
 
-    public void initElements() {
+    private void initElements() {
         userEmailField = driver.findElement(By.xpath("//input[@id='login-email']"));
         userPasswordField = driver.findElement(By.xpath("//input[@id='login-password']"));
         submitInButton = driver.findElement(By.xpath("//input[@id='login-submit']"));
@@ -31,5 +31,11 @@ public class LoginPage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isPageLoaded() {
+        return driver.getCurrentUrl().equals("https://www.linkedin.com/")
+                && driver.getTitle().contains("LinkedIn: Log In or Sign Up")
+                && submitInButton.isDisplayed();
     }
 }
