@@ -18,4 +18,7 @@ public class WrongCredentialsPage {
         errorPasswordMessage = driver.findElement(By.xpath("//div[@id='error-for-password']"));
         return errorPasswordMessage.getText();
     }
+    public boolean isPageLoaded() {
+        return driver.getCurrentUrl().equals("https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME");
+    }
 }
