@@ -121,3 +121,21 @@ public class LoginTest {
 }
 // Review/Refactor tests
 // Write a new test: LoginWithValidCredentials > Search "HR" > 10 results > Each block contains HR
+
+/*
+1:58 PM
+Home Task #7:
+Implement basicSearchTest() Scenario.
+- Open new Browser
+- Navigate to http://www.linkedin.com
+- Verify that Landing page is loaded
+- Login with valid credentials
+- Verify that Home page is loaded
+- Search for "HR" search term
+- Verify that Search page is loaded
+- Verify that numbers of search results is 10
+- Verify that each search result contains search term
+
+LinkedIn: Log In or Sign Up
+http://www.linkedin.com
+ */
