@@ -1,13 +1,15 @@
+package page;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class WrongCredentialsPage {
-    private WebDriver driver;
+public class LoginSubmitPage extends BasePage {
+
     private WebElement errorLoginMessage;
     private WebElement errorPasswordMessage;
 
-    public WrongCredentialsPage(WebDriver driver) {
+    public LoginSubmitPage(WebDriver driver) {
         this.driver = driver;
     }
     public String getErrorLoginMessage() {
